@@ -14,9 +14,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+    <script src="./js/jquery-3.7.1.js"></script>
     <meta charset ="utf-8">
      
   </head>
+
+  <script>
+    $(function() {
+      //adds the image in the gamespace on load
+      $("#gamespace").prepend('<img class="mainImage" src="./img/yellow_butterfly.png" />');
+      
+      //shows the timer on load
+      $("#time").show();
+
+      //provides button function and styles the button
+      $("#start_button").click(function() {
+        alert("Button works!")
+      })
+      $("#start_button").css({"width": "40px", "height": "auto", "padding-right": "50px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"})
+    })
+
+    //adding interactivity to the score
+    
+  </script>
   <body>
 
    <div id="wrapper">   
@@ -38,10 +58,12 @@
 
 		 
 		<div id="gamespace">
-
-			<img class="mainImage" src="./img/10614243.png">
 		
 		</div>
+
+    <div id="time">
+      30 seconds left
+    </div>
 		
 	</div><!--ends content div -->
     

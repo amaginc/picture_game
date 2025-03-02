@@ -1,7 +1,8 @@
 /* CSS Document */
 
 html {
-    background-image: linear-gradient(to right, #C91E0A, #E98604, #EDA421);
+    background-image: url(../img/leaves_background.jpg);
+    background-size: cover;
 }
 
 html, body {
@@ -9,22 +10,37 @@ html, body {
 	margin: 0 auto;
 	font-family: sans-serif;
 	font-size: 13px;
+    
 }
 	
 h1 {
 	margin: 2px;
     font-family: "Poetsen One", sans-serif;
-    font-size: 60px;
+    font-size: 48px;
+    color: #f5ee61;
+    text-shadow: 2px 2px #000000, 3px 3px 5px #FFF;
 }
 
 p {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 25px;
+    font-size: 18px;
+    color: whitesmoke;
+}
+
+#score {
+    font-family: "Poetsen One", sans-serif;
+    font-size: 18px;
+    color: #f5ee61;
+    text-shadow: 2px 2px #000, 3px 3px 1px white;
 }
 	
 button {
     padding: 8px;
-   }
+}
+
+#start_button:hover {
+    box-shadow: 0 5px 5px 0 #eb8215, 0 10px 10px 0 #f5ee61;
+}
 
 #content {
 	padding: 20px;
@@ -53,6 +69,15 @@ button {
     text-align:center;
     width: 550px;
     min-width: 400px;
+}
+
+#time {
+    font-family: "Poetsen One", sans-serif;
+    font-size: 20px;
+    color: #97191c;
+    font-weight: bold;
+    padding-top: 20px;
+    content-visibility: hidden;
 }
 
 
