@@ -20,6 +20,21 @@
   </head>
 
   <script>
+    let gameSpaceWidth = $("#gamespace").width();
+    let gameSpaceHeight = $("#gamespace").height();
+
+    //two random number functions
+    function randWidthFunction(width) {
+      let randomWidth = Math.random(gameSpaceWidth);
+      return randomWidth;
+    };
+    function randHeightFunction(height) {
+      let randomHeight = Math.random(gameSpaceHeight);
+      return randomHeight;
+    };
+
+
+    //Document ready function
     $(function() {
       //adds the image in the gamespace on load
       $("#gamespace").prepend('<img class="mainImage" src="./img/yellow_butterfly.png" />');
@@ -29,12 +44,25 @@
 
       //provides button function and styles the button
       $("#start_button").click(function() {
-        alert("Button works!")
-      })
-      $("#start_button").css({"width": "40px", "height": "auto", "padding-right": "50px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"})
+        alert("Button works!");
+      });
+      $("#start_button").css({"width": "40px", "height": "auto", "padding-right": "50px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"});
+      
+      //testing the 2 functions that were created
+      $("#testbutton").click(function() {
+        alert(`${randWidthFunction(gameSpaceWidth)}`);
+        alert(`${randHeightFunction(gameSpaceHeight)}`);
+      });
+
+      //testing the score increment function
+      $("#score").html(incrementScore(score)+ 1);
     })
 
     //adding interactivity to the score
+    let score = 0;
+    function incrementScore(score) {
+      return score;
+    };
     
   </script>
   <body>
@@ -51,8 +79,10 @@
            
             <p><span id="score">0 pts</span></p>
             
-            <button type="button" id="start_button">Start!</button>        
-
+            <button type="button" id="start_button">Start!</button>   
+            
+            <!--this button is just to test the 2 functions and make sure the calling works-->
+            <button type="button" id="testbutton">Test Function</button>
             
         </div>
 
