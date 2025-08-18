@@ -14,27 +14,141 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico.png">
     <script src="./js/jquery-3.7.1.js"></script>
     <meta charset ="utf-8">
      
   </head>
 
   <script>
-    $(function() {
-      //adds the image in the gamespace on load
-      $("#gamespace").prepend('<img class="mainImage" src="./img/yellow_butterfly.png" />');
-      
-      //shows the timer on load
+    //gets the width and height of the game space and assigns them to a variable
+    let gameSpaceWidth = $("#gamespace").width();
+    let gameSpaceHeight = $("#gamespace").height();
+    
+
+    //calculates random width and height values taking
+    //the boundaries of the gamespace into account
+    function randWidthFunction() {
+      let gameSpaceWidth = $("#gamespace").width();
+      return Math.floor(Math.random()*(gameSpaceWidth - 120));
+    };
+    function randHeightFunction() {
+      let gameSpaceHeight = $("#gamespace").height();
+      return Math.floor(Math.random()*(gameSpaceHeight - 120));
+    };
+
+
+    let posX;
+    let posY;
+    function startGame() {
+
+      //shows the timer once the game starts
       $("#time").show();
 
+       
+      decrementTime();
+      addImg();
+    };
+
+    let newImg;
+    let maxTime = 2000;
+    function addImg() {
+      //calls the random number functions and assigns them to a variable
+      posX = randWidthFunction();
+      posY = randHeightFunction();
+      //adds the image in the gamespace when called
+      $("#gamespace").prepend(`<img class="mainImage" src="./img/yellow_butterfly.png" style=" left: ${posX}px; top: ${posY}px;" />`);
+      
+    //calculates a new time interval for the next image to appear
+    let randomInterval = Math.floor(Math.random()*maxTime);
+    //adds a new image to the gamespace based on the calculated interval
+    newImg = setTimeout("addImg()", randomInterval);
+      
+    };
+
+
+    let oldImg;
+
+    //Document ready function
+    $(function() {
       //provides button function and styles the button
-      $("#start_button").click(function() {
-        alert("Button works!")
-      })
-      $("#start_button").css({"width": "40px", "height": "auto", "padding-right": "50px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"})
-    })
+      $("#start_button").on("click", function() {
+        startGame();
+        score = 0
+        $("#score").html(score + " pts");
+
+        //disables the start button until the timer while the game is being played
+        $(this).prop("disabled", true);
+        
+        
+        //calculates an interval to remove the images added to the gamespace
+        let randomInterval = Math.floor(0.8 * 3000);
+        //removes the images with the assigned class from the gamespace 
+        //based on the calculated interval
+        oldImg = setInterval(function() {
+          $(".mainImage").hide()
+        }, randomInterval);
+
+      });
+      $("#start_button").css({"width": "40px", "height": "auto", "padding-right": "50px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"});
+      
+      
+      
+      //makes the added images clickable
+      $("#gamespace").on("click", ".mainImage", function() {
+        //increases the score by one when clicked
+        incrementScore();
+        //hides the clicked element
+        $(this).hide();
+      });
+
+      $("footer").load("load.html ");
+      
+    });
+
+    //adding interactivity to the time
+    //also timing the appearance of the immages to the gamespace
+    let time = 30;
+    let newTime;
+    function decrementTime() {
+      newTime = setInterval("countDown()", 1000);
+    };
+    function countDown() {
+      time -=1;
+      $("#time").html(time + " second(s) left");
+      clear(time);
+      if (time == 0) {
+        time +=30;
+      }
+    };
+
+    //this function takes in the time variable as a parameter
+    //and ends the game when the time variable reaches zero
+    function clear(time) {
+      if (time == 0) {
+        $("#time").html("Times Up!");
+        clearInterval(newTime);
+        clearTimeout(newImg);
+        clearInterval(oldImg);
+        $("#gamespace").empty();
+        $("#start_button").prop("disabled", false).css({"width": "70px", "height": "auto", "padding-right": "60px", "padding-left": "10px", "font-size": "16px", "background-color": "#97191c", "color": "#f5ee61", "font-weight": "bold", "border-radius": "12px"}).html("Replay");
+        alert(`You scored ${score} pts!`);
+        
+
+      }
+    };
+    
+    
 
     //adding interactivity to the score
+    let score = 0
+    function incrementScore() {
+      score += 1;
+      $("#score").html(score + " pts");
+
+    };
+
+
     
   </script>
   <body>
@@ -49,10 +163,15 @@
               you will catch the butterfly and win points! Continue to click the butterflys and catch as many as you can as fast as they appear to get more points. 
               Get as many points as you can to win! </p>
            
-            <p><span id="score">0 pts</span></p>
+            <div id="score_time_container">
+            <span id="score">0 pts</span>
+            <span id="time">30 seconds left</span>
+            </div>
             
-            <button type="button" id="start_button">Start!</button>        
-
+            <button type="button" id="start_button">Start!</button>   
+            
+            <!--this button is just to test the 2 functions and make sure the calling works-->
+            
             
         </div>
 
@@ -60,15 +179,17 @@
 		<div id="gamespace">
 		
 		</div>
+    
 
-    <div id="time">
-      30 seconds left
-    </div>
+  
 		
 	</div><!--ends content div -->
     
 </div>
 <script src="./js/myscript.js"></script>
+
+<footer>
+</footer>
   </body>
 </html>
 <!-- 10/28/21 -->

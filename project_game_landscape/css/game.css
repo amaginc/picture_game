@@ -40,6 +40,7 @@ button {
 
 #start_button:hover {
     box-shadow: 0 5px 5px 0 #eb8215, 0 10px 10px 0 #f5ee61;
+    cursor: pointer;
 }
 
 #content {
@@ -55,7 +56,20 @@ button {
     width:600px;
 	background-color: #FFF;
 	border: 2px solid #CCC; 
+    
 
+}
+
+#gamespace:hover {
+    cursor:url(../img/butterfly-net.png), grab;
+}
+
+div#gamespace img {
+    position: absolute;
+}
+
+div#gamespace { 
+    position: relative;
 }
 
 .mainImage {
@@ -71,13 +85,28 @@ button {
     min-width: 400px;
 }
 
-#time {
+#score {
+    flex: 1;
+    text-align: left;
     font-family: "Poetsen One", sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    color: #f5ee61;
+    text-shadow: 2px 2px #000, 3px 3px 1px white;
+}
+
+#time {
+    flex: 1;
+    text-align: right;
+    font-family: "Poetsen One", sans-serif;
+    font-size: 18px;
     color: #97191c;
     font-weight: bold;
-    padding-top: 20px;
-    content-visibility: hidden;
+    display: none;
+}
+
+#score_time_container {
+    display: flex;
+    margin-bottom: 20px;
 }
 
 
